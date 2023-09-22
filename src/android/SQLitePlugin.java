@@ -41,6 +41,12 @@ public class SQLitePlugin extends CordovaPlugin {
     return new Handler(thread.getLooper());
   }
 
+  public void shutdown() {
+    for (SQLiteDatabase db : DATABASES.values()) {
+      db.close();
+    }
+  }
+
   @Override
   public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
     debug("execute(%s)", action);

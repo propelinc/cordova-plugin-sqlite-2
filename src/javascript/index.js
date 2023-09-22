@@ -30,6 +30,13 @@ function openDatabase(name, version, description, size, callback) {
   return openDB(name, version, description, size, callback);
 }
 
+async function shutdown() {
+  await new Promise((resolve, reject) => {
+    cordova.exec(resolve, reject, 'SQLitePlugin', 'shutdown', null);
+  });
+}
+
 SQLitePlugin.prototype.openDatabase = openDatabase;
+SQLitePlugin.prototype.shutdown = shutdown;
 
 export default new SQLitePlugin();
